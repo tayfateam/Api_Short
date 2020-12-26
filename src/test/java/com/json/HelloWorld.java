@@ -1,8 +1,5 @@
 package com.json;
 
-import java.sql.SQLOutput;
-import java.util.Map;
-
 public class HelloWorld {
 
     public static void main(String[] args) {
