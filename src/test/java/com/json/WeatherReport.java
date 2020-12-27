@@ -8,7 +8,6 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -73,11 +72,12 @@ public class WeatherReport {
         System.out.printf("Temps (max)              : %s %n", main.get("temp_max"));
         System.out.printf("Humidity                 : %s %n", main.get("humidity"));
 
+        // Array
+        JSONArray weather = (JSONArray) data_obj.get("weather");
+        JSONObject weatherInfo = (JSONObject) weather.get(0);
 
-
-
+        System.out.printf("Condition               : %s %n", weatherInfo.get("main"));
+        System.out.printf("Description             : %s %n", weatherInfo.get("description"));
 
     }
-
-
 }
