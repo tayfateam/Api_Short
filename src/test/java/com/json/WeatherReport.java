@@ -40,8 +40,17 @@ public class WeatherReport {
             System.exit(0);
         }
 
+    // Download all data from web
+        StringBuilder inline = new StringBuilder();
+        Scanner scanner = new Scanner(url.openStream());
+
+        while (scanner.hasNext())
+            inline.append(scanner.nextLine());
+
+        System.out.println(inline);
 
 
+        scanner.close();
 
     }
 
