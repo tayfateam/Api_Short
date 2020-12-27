@@ -14,11 +14,11 @@ import java.util.Scanner;
 
 public class WeatherReport {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
 
         String apiKey = "afc1387bb4cc87d707e38e9ac478f034";
         String serviceAPI = "https://api.openweathermap.org/data/2.5/weather?q=";
-        String location = "New York City";
+        String location = "Istanbul";
         String units = "metric";
         String URI = serviceAPI + location + "&appid=" + apiKey + "&units=" + units;
 
@@ -40,17 +40,42 @@ public class WeatherReport {
             System.exit(0);
         }
 
-    // Download all data from web
+        // Download all data from web
         StringBuilder inline = new StringBuilder();
         Scanner scanner = new Scanner(url.openStream());
 
         while (scanner.hasNext())
             inline.append(scanner.nextLine());
 
-        System.out.println(inline);
-
+        //System.out.println(inline);
 
         scanner.close();
+
+
+        //Using the JSON simple library parse the string into a json object
+        JSONParser parse = new JSONParser();
+        JSONObject data_obj = (JSONObject) parse.parse(inline.toString());
+
+        System.out.println("Location                :  " + data_obj.get("name"));
+
+
+        // Coordinates
+//        JSONObject coord = (JSONObject) data_obj.get("coord");
+//        System.out.println("Latitude                :  " + coord.get("lat"));
+//        System.out.println("Longitude               : " + coord.get("lon"));
+
+
+        // Weather Report
+        JSONObject main = (JSONObject) data_obj.get("main");
+        System.out.printf("Current Temperature (C)  : %s %n", main.get("temp"));
+        System.out.printf("Feels Like               : %s %n", main.get("feels_like"));
+        System.out.printf("Temps (min)              : %s %n", main.get("temp_min"));
+        System.out.printf("Temps (max)              : %s %n", main.get("temp_max"));
+        System.out.printf("Humidity                 : %s %n", main.get("humidity"));
+
+
+
+
 
     }
 
