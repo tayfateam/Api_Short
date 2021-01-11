@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
+
 
 
 public class SpartanRestAssure {
@@ -19,7 +19,7 @@ public class SpartanRestAssure {
     @BeforeAll
     public static void setup() {
 
-        baseURI = "http://52.90.77.165:8000";
+        baseURI = "http://107.20.53.61:8000";
         basePath = "/api";
 
 
@@ -67,7 +67,7 @@ public class SpartanRestAssure {
 
     @Test
     public void spartanSearh() {
-        Response response = given().
+         Response response=given().
                 log().all().
                 queryParam("gender", "Male").
                 accept(ContentType.JSON).
@@ -77,14 +77,13 @@ public class SpartanRestAssure {
              then().
                 statusCode(200).
                 contentType(ContentType.JSON).extract().response();
-        // body("",not(containsString("Male"))).extract().response();
+               // body("",not(containsString("Male")));
 
         List<String> spartan = response.path("content.gender");
         System.out.println("Size"+spartan.size());
         System.out.println("spartan = " + spartan);
         assertThat(spartan, not(hasItem("Female")));
         assertThat(spartan, hasSize(54));
-
     }
 }
 
