@@ -4,6 +4,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pojo.Spartan;
 
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,31 @@ public class Java_Object {
 
         System.out.println("SpartanList = " + SpartanList);
 
+        String spartan17name =SpartanList.get(16).get("name").toString();
 
+        System.out.println("spartan17name = " + spartan17name);
+
+
+
+
+
+    }
+
+    @Test
+    public void spartnaPojo(){
+
+        Response response=  given()
+                                .log().all()
+                                .contentType(ContentType.JSON)
+                                .pathParam("id", 15).
+                                        when()
+                                .get("/spartans/{id}").prettyPeek();
+
+        JsonPath jsSpartan15=response.jsonPath();
+
+        Spartan spartan15Obj=jsSpartan15.getObject("", Spartan.class);
+
+        System.out.println("spartan15Obj = " + spartan15Obj);
 
 
 
